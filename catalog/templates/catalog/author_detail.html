@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Autor: {{ author.last_name }}, {{ author.first_name }}</h1>
+
+    <p><strong>Fecha de nacimiento:</strong> {{ author.date_of_birth }}</p>
+
+    {% if author.date_of_death %}
+        <p><strong>Fecha de fallecimiento:</strong> {{ author.date_of_death }}</p>
+    {% endif %}
+
+    <h2>Libros</h2>
+
+    {% if author.book_set.all %}
+        <ul>
+        {% for book in author.book_set.all %}
+            <li>
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+                <p>{{ book.summary }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Este autor no tiene libros registrados.</p>
+    {% endif %}
+{% endblock %}
